@@ -4,6 +4,15 @@
   <%= resource.text %>
 </div>
 
+<% if can? :edit, resource %>
+  <%= link_to :edit, [:edit, resource] %>
+<% end %>
+
+<% if can? :delete, resource %>
+  <%= link_to :delete, resource, :method => :delete, :confirm => 'Are you sure?' %><br>
+<% end %>
+
+
 <h2>Comments</h2>
 
 <div class="comments">

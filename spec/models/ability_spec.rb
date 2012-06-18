@@ -25,8 +25,32 @@ describe Ability do
     it { should be_able_to :manage, create(:comment, :user => user) }
 
     it { should_not be_able_to :manage, create(:comment) }
-  end
+
+    it { should be_able_to :edit, user }
     
+    it { should_not be_able_to :manage, create(:role) }
+
+    it { should_not be_able_to :create, Role }
+
+    it { should_not be_able_to :update, Role }
+
+    it { should_not be_able_to :destroy, Role }
+  end
+
+  %w(user role post comment).each do |resource|
+    describe "manage_all_#{resource.pluralize}" do
+      before do
+        @user = create :user
+
+        @user.roles << (Role.create :title => "manage_all_#{resource.pluralize}")
+      end
+
+      subject { Ability.new(@user) }
+      
+      it { should be_able_to :manage, resource.classify.constantize }
+    end
+  end
+
   context 'Anonymous' do
     subject { Ability.new(nil) }
     
@@ -34,8 +58,38 @@ describe Ability do
 
     it { should be_able_to(:read, create(:comment)) }
     
-    it { should_not be_able_to :manage, Post }
+    it { should_not be_able_to :manage, create(:post) }
 
-    it { should_not be_able_to :manage, Comment }
+    it { should_not be_able_to :manage, create(:comment) }
+
+    it { should_not be_able_to :manage, create(:user) }
+
+    it { should_not be_able_to :manage, create(:role) }
+
+    it { should be_able_to :read, Comment }
+
+    it { should be_able_to :read, Post }
+
+    it { should be_able_to :read, User }
+
+    it { should be_able_to :read, Role }
+
+    it { should_not be_able_to :create, Post }
+
+    it { should_not be_able_to :create, Comment }
+    
+    it { should_not be_able_to :create, Role }
+
+    it { should_not be_able_to :destroy, Post }
+
+    it { should_not be_able_to :destroy, Comment }
+    
+    it { should_not be_able_to :destroy, Role }
+
+    it { should_not be_able_to :update, Post }
+
+    it { should_not be_able_to :update, Comment }
+    
+    it { should_not be_able_to :update, Role }
   end
 end

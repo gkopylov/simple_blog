@@ -1,6 +1,14 @@
 SimpleBlog::Application.routes.draw do
   devise_for :users
 
+  resource :admin, :controller => 'admin', :only => :show
+
+  namespace :admin do
+    resources :users, :only => :index
+
+    resources :posts, :only => [:index, :show, :edit, :update]
+  end
+  
   resources :posts do
     resources :comments, :only => [:new, :create]
   end

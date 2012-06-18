@@ -1,6 +1,8 @@
 <h1>Posts</h1>
 
-<%= link_to 'New post', [:new, :post] %>
+<% if can? :create, Post %>
+  <%= link_to 'New post', [:new, :post] %>
+<% end %>
 
 <%= render collection %>
 

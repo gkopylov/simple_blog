@@ -15,4 +15,9 @@ FactoryGirl.define do
     text 'Post text'
     user
   end
+
+  factory :role do
+    title 'test'
+    user
+  end
 end

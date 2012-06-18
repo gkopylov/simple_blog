@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   attr_accessible :name, :text, :user_id
 
-  default_scope order('created_at')
+  default_scope order('created_at DESC')
 
   belongs_to :user
 
@@ -13,5 +13,5 @@ class Post < ActiveRecord::Base
 
   has_many :comments, :dependent => :destroy
 
-  paginates_per 2
+  paginates_per 3
 end
