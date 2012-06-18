@@ -1,0 +1,16 @@
+<% if current_user %>
+  <div class="menu_welcome">
+    Hi, <%= current_user.email || current_user.name %>
+  </div>
+
+  <div class="menu_user_logout">  
+    <%= link_to 'Sign out', :destroy_user_session, :method => :delete %>
+  </div>  
+
+  <%= link_to current_user do %>
+      <div class="menu_settings">Settings</div>
+  <% end %>
+
+<% else %>
+  <%= link_to 'Sign in', new_user_session_path %>
+<% end %>

@@ -1,0 +1,9 @@
+<div class="user">
+  <%= user.name || user.email %>
+
+  <% if can? :edit, user %>
+    <%= link_to :edit, [:edit, user] %>
+  <% end %>
+</div>
+
+<%= link_to :index, users_path %>

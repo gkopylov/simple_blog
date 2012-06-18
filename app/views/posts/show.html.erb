@@ -1,0 +1,19 @@
+<h1><%= resource.name %></h1>
+
+<div> 
+  <%= resource.text %>
+</div>
+
+<h2>Comments</h2>
+
+<div class="comments">
+  <%= render resource.comments %>
+</div>
+
+<%= link_to 'Index', posts_path %>
+
+<% if can? :create, Comment %>
+  <p>Leave a comment:</p>
+
+  <%= render 'comments/form', :post => resource, :comment => resource.comments.new %>
+<% end %>

@@ -1,0 +1,15 @@
+<div class="post">
+  <h2><%= link_to post.name, post %></h2>
+
+  <%= link_to post.text, post %><br>
+  
+  <% if can? :edit, post %>
+    <%= link_to :edit, [:edit, post] %>
+  <% end %>
+
+  <% if can? :delete, post %>
+    <%= link_to :delete, post, :method => :delete, :confirm => 'Are you sure?' %><br>
+  <% end %>
+
+  Posted by <%= post.user.name || post.user.email %>
+</div>
