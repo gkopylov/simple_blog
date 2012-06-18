@@ -6,14 +6,6 @@ class Ability
     
     can :read, :all
 
-    resources = %w(user role post comment)
-
-    resources.each do |resource|
-      can :manage, resource.classify.constantize do |item|
-        user.send("manage_#{resource}?", item.id) or user.send("manage_all_#{resource.pluralize}?")
-      end
-    end
-    
     cannot :create, Post
     
     cannot :create, Comment
@@ -33,8 +25,16 @@ class Ability
     cannot :update, Role
     
     if user.persisted?
-      can :create, Post
+      resources = %w(user role post comment)
 
+      resources.each do |resource|
+        can :manage, resource.classify.constantize do |item|
+          user.send("manage_#{resource}?", item.id) or user.send("manage_all_#{resource.pluralize}?")
+        end
+      end
+
+      can :create, Post
+      
       can :manage, Post, :user_id => user.id
      
       can :create, Comment

@@ -1,0 +1,13 @@
+<%= semantic_nested_form_for [:admin, resource] do |f| %>
+  <%= f.inputs :name, :email, :password %>
+  
+  <%= f.semantic_fields_for :roles do |role_form| %>
+    <%= role_form.inputs :title, :item_id %>
+    <%= role_form.link_to_remove "Remove this task" %>
+  <% end %>
+  <%= f.link_to_add "Add a role", :roles %>
+
+  <%= f.buttons do %>
+    <%= f.button :submit, :as => :button %>
+  <% end %>
+<% end %>

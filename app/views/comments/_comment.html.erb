@@ -2,7 +2,7 @@
   <div>
     <%= comment.text %>
 
-    <% if can? :edit, comment%>
+    <% if can? :edit, comment %>
       <%= link_to :edit, [:edit, comment], :remote => true %>
     <% end %>
 

@@ -11,6 +11,20 @@ describe Ability do
     it { should be_able_to(:manage, :all) }
   end
   
+  %w(user role post comment).each do |resource|
+    describe "manage_all_#{resource.pluralize}" do
+      before do
+        @user = create :user
+
+        @user.roles << (Role.create :title => "manage_all_#{resource.pluralize}")
+      end
+
+      subject { Ability.new(@user) }
+      
+      it { should be_able_to :manage, resource.classify.constantize }
+    end
+  end
+
   describe 'User' do
     subject { Ability.new(user) }
 
@@ -35,20 +49,6 @@ describe Ability do
     it { should_not be_able_to :update, Role }
 
     it { should_not be_able_to :destroy, Role }
-  end
-
-  %w(user role post comment).each do |resource|
-    describe "manage_all_#{resource.pluralize}" do
-      before do
-        @user = create :user
-
-        @user.roles << (Role.create :title => "manage_all_#{resource.pluralize}")
-      end
-
-      subject { Ability.new(@user) }
-      
-      it { should be_able_to :manage, resource.classify.constantize }
-    end
   end
 
   context 'Anonymous' do

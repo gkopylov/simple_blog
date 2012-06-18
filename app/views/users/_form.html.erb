@@ -1,7 +1,7 @@
 <%= semantic_form_for resource do |f| %>
   <%= f.semantic_errors :base %>
 
-  <%= f.inputs :name, :email %>
+  <%= f.inputs :name, :email, :password %>
 
   <%= f.buttons do %>
     <%= f.button :submit, :as => :button %>

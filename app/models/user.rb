@@ -5,19 +5,19 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  
-  attr_accessible :name
+  attr_accessible :email, :name, :password, :password_confirmation, :remember_me, :roles_attributes
 
   validates :email, :presence => true, uniqueness: { case_sensitive: false }
 
   validates :password, :presence => true
 
-  has_many :roles
+  has_many :roles, :dependent => :destroy 
 
-  has_many :posts
+  has_many :posts, :dependent => :destroy
   
-  has_many :comments
+  has_many :comments, :dependent => :destroy
+
+  accepts_nested_attributes_for :roles, :allow_destroy => true
 
   paginates_per 5
   
@@ -35,9 +35,5 @@ class User < ActiveRecord::Base
     define_method "manage_#{item}?" do |number|
       !!roles.find_by_title_and_item_id("manage_#{item}", number)
     end
-  end
-  
-  def edit_all?
-    !!roles.find_by_title('admin')
   end
 end

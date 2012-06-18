@@ -2,4 +2,8 @@
   Name: <%= user.name %><br>
 
   Email: <%= user.email %><br>
+
+  <%= link_to 'Settings', [:admin, user] %>
+
+  <%= link_to 'Delete', [:admin, user], :method => :delete, :confirm => 'Are you sure?' %>
 </div>

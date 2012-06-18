@@ -1,7 +1,15 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < AdminController
+  include InheritedResources::DSL
 
-  def index
-    @users = User.order('created_at DESC').page params[:page]
-  end
+  inherit_resources
 
+  load_and_authorize_resource
+  
+  actions :all, :except => [:new, :create]
+  
+  update! do |success, failure|
+    success.html { redirect_to [:admin, :users] }
+  
+    failure.html { render  }    
+  end 
 end
