@@ -4,4 +4,13 @@ Name: <%= resource.name %><br>
 
 Email: <%= resource.email %><br>
 
+Roles and abilities:
+<% if resource.roles.size == 0 %>
+  user<br>
+<% end %>
+
+<% resource.roles.each do |role| %>
+  <%= role.title %><br>
+<% end %>
+
 <%= link_to 'Edit', [:edit, :admin, resource] %>

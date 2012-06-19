@@ -1,14 +1,18 @@
 <div class="comment" id="comment_<%= comment.id %>">
   <div>
-    <%= comment.text %>
+    <p>
+      <%= comment.text %><br>
 
-    <% if can? :edit, comment %>
-      <%= link_to :edit, [:edit, comment], :remote => true %>
-    <% end %>
+      Commented by <%= comment.user.name.presence || comment.user.email.presence %><br>
+        
+      <% if can? :edit, comment %>
+        <%= link_to :edit, [:edit, comment], :remote => true %>
+      <% end %>
 
-    <% if can? :delete, comment %>
-      <%= link_to :delete, comment, :method => :delete, 
-        :confirm => 'Are you sure?', :remote => true %>
-    <% end %>   
+      <% if can? :delete, comment %>
+        <%= link_to :delete, comment, :method => :delete, 
+          :confirm => 'Are you sure?', :remote => true %>
+      <% end %>     
+    </p>
   </div>
 </div>

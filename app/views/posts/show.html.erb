@@ -1,8 +1,12 @@
-<h1><%= resource.name %></h1>
+<h1><%= resource.name %></h1> 
+  
+<p><%= resource.text %></p>
 
-<div> 
-  <%= resource.text %>
-</div>
+<p>
+  Posted by <%= resource.user.name.presence || resource.user.email.presence %>
+
+  <%= l resource.created_at, :format => :short %>
+</p>
 
 <% if can? :edit, resource %>
   <%= link_to :edit, [:edit, resource] %>
@@ -18,8 +22,6 @@
 <div class="comments">
   <%= render resource.comments %>
 </div>
-
-<%= link_to 'Index', posts_path %>
 
 <% if can? :create, Comment %>
   <p>Leave a comment:</p>

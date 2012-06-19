@@ -24,10 +24,8 @@ class Ability
 
     cannot :update, Role
     
-    if user.persisted?
-      resources = %w(user role post comment)
-
-      resources.each do |resource|
+    if user.persisted? 
+      %w(user role post comment).each do |resource|
         can :manage, resource.classify.constantize do |item|
           user.send("manage_#{resource}?", item.id) or user.send("manage_all_#{resource.pluralize}?")
         end

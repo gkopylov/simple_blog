@@ -5,6 +5,14 @@ describe Admin::UsersController do
 
   it { should route(:get, '/admin/users').to(:action => :index) }
   
+  it { should route(:get, '/admin/users/1').to(:action => :show, :id => 1) }
+  
+  it { should route(:get, '/admin/users/1/edit').to(:action => :edit, :id => 1) }
+  
+  it { should route(:put, '/admin/users/1').to(:action => :update, :id => 1) }
+  
+  it { should route(:delete, '/admin/users/1').to(:action => :destroy, :id => 1) }
+  
   describe 'GET index' do
     before { get :index }
 
@@ -66,12 +74,22 @@ describe Admin::UsersController do
       sign_in @admin
     end
 
+    describe 'GET index' do
+      before { get :index }
+
+      it { should render_template :index }
+
+      it { should assign_to(:users) }
+    end
+    
     describe 'GET edit' do
       before { get :edit, :id => user }
 
       it { should render_template :edit }
 
       it { should assign_to(:user).with(user) }
+
+      it { should assign_to(:user).with_kind_of(User) }
     end
 
     describe 'PUT update' do
@@ -81,6 +99,8 @@ describe Admin::UsersController do
         it { should render_template :edit }
 
         it { assigns(:user).name.should == 'rename' }
+
+        it { should assign_to(:user).with_kind_of(User) }
       end
 
       context 'with invalid attributes' do
@@ -94,7 +114,8 @@ describe Admin::UsersController do
       before { get :show, :id => user }
 
       it { should render_template :show }
+
+      it { should assign_to(:user).with_kind_of(User) }
     end
   end
-
 end

@@ -12,7 +12,7 @@ describe Ability do
   end
   
   %w(user role post comment).each do |resource|
-    describe "manage_all_#{resource.pluralize}" do
+    describe "User manage_all_#{resource.pluralize}" do
       before do
         @user = create :user
 
@@ -22,6 +22,22 @@ describe Ability do
       subject { Ability.new(@user) }
       
       it { should be_able_to :manage, resource.classify.constantize }
+    end
+  end
+
+  %w(user role post comment).each do |resource|
+    describe "User manage_#{resource}" do
+      before do
+        @item = create resource.to_sym
+
+        @user = create :user
+
+        @user.roles << (Role.create :title => "manage_#{resource}", :item_id => @item )
+      end
+
+      subject { Ability.new(@user) }
+      
+      it { should be_able_to :manage, @item }
     end
   end
 

@@ -3,8 +3,6 @@ class Admin::UsersController < AdminController
 
   inherit_resources
 
-  load_and_authorize_resource
-  
   actions :all, :except => [:new, :create]
   
   update! do |success, failure|

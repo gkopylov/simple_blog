@@ -3,5 +3,5 @@
 
   <%= link_to post.text, post %><br>
   
-  Posted by <%= post.user.name || post.user.email %>
+  Posted by <%= post.user.name.presence || post.user.email.presence %>
 </div>
