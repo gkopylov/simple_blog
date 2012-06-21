@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
 
-gem 'sqlite3'
+gem 'pg'
 
 gem 'inherited_resources'
 gem 'has_scope'
@@ -11,6 +11,7 @@ gem 'formtastic'
 gem 'devise'
 gem 'cancan'
 gem 'nested_form'
+gem 'heroku'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

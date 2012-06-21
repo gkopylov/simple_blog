@@ -39,7 +39,7 @@ class Ability
 
       can :manage, Comment, :user_id => user.id
 
-      can :edit, User, :id => user.id
+      can :manage, User, :id => user.id
 
       cannot :destroy, User
 
