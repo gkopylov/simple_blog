@@ -19,7 +19,7 @@ and enjoy! :-)
 
 Features
 =============
-You can assign special roles for users like manage_all_<resources> and manage_<resource> item_id, where <resources> and <resource> is a post(s), comment(s), role(s), and user(s).
+You can assign special roles for users like manage_all_resources and manage_resource item_id, where resources and resource is a post(s), comment(s), role(s), and user(s).
 For example, if you assign role manage_post, item_id 10 for user, then this user could manage this post with id=10 and if you assign role manage_all_post for this user, then this user could manage all posts.
 
 Testing
