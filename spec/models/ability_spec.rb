@@ -32,7 +32,7 @@ describe Ability do
 
         @user = create :user
 
-        @user.roles << (Role.create :title => "manage_#{resource}", :item_id => @item )
+        @user.roles << (Role.create :title => "manage_#{resource}", :item_id => @item.id )
       end
 
       subject { Ability.new(@user) }
