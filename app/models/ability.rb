@@ -5,25 +5,6 @@ class Ability
     user ||= User.new
     
     can :read, :all
-
-    cannot :create, Post
-    
-    cannot :create, Comment
-
-    cannot :create, Role
-    
-    cannot :destroy, Post
-    
-    cannot :destroy, Comment
-
-    cannot :destroy, Role
-    
-    cannot :update, Post
-    
-    cannot :update, Comment
-
-    cannot :update, Role
-    
     
     if user.persisted? 
       can :create, Post
@@ -49,14 +30,6 @@ class Ability
       can :manage, Comment, :user_id => user.id
 
       can :manage, User, :id => user.id
-
-      cannot :destroy, User
-
-      cannot :create, Role
-      
-      cannot :update, Role
-      
-      cannot :destroy, Role 
     end
 
     if user.admin?
