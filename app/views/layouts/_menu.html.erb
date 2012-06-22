@@ -5,7 +5,7 @@
 
   <%= link_to 'Settings', current_user %><br>
 
-  <% if current_user.admin? %>
+  <% if can? :manage, :all %>
     <%= link_to 'Admin panel', :admin %><br>
   <% end %>
 

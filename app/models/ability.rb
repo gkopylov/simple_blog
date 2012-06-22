@@ -24,14 +24,23 @@ class Ability
 
     cannot :update, Role
     
+    
     if user.persisted? 
+      can :create, Post
+      
+      can :manage, Post if user.manage_all_posts?
+
+      can :manage, Comment if user.manage_all_comments?
+
+      can :manage, Role if user.manage_all_roles?
+
+      can :manage, User if user.manage_all_users?
+      
       %w(user role post comment).each do |resource|
-        can :manage, resource.classify.constantize do |item|
-          user.send("manage_#{resource}?", item.id) or user.send("manage_all_#{resource.pluralize}?")
+        user.roles.find_all_by_title("manage_#{resource}").each do |item|
+          can :manage, resource.classify.constantize, :id => item.item_id
         end
       end
-
-      can :create, Post
       
       can :manage, Post, :user_id => user.id
      
@@ -47,7 +56,7 @@ class Ability
       
       cannot :update, Role
       
-      cannot :destroy, Role
+      cannot :destroy, Role 
     end
 
     if user.admin?
